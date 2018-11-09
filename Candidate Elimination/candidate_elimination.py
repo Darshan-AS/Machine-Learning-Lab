@@ -25,8 +25,8 @@ class CandidateElimination:
         for index, hypothesis in hypothesis_set.iterrows():
             is_more_general = True
             for hypothesis_feature, new_hypothesis_feature in zip(hypothesis, new_hypothesis):
-                is_more_general = is_more_general and \
-                                  (new_hypothesis_feature == '?' or new_hypothesis_feature == hypothesis_feature)
+                is_more_general = is_more_general and (new_hypothesis_feature == '?'
+                                                       or new_hypothesis_feature == hypothesis_feature)
             if not is_more_general:
                 return False
 
@@ -60,7 +60,8 @@ class CandidateElimination:
         for label, hypothesis in self.specific_hypothesis.iterrows():
             is_consistent = False
             for hypothesis_feature, instance_feature in zip(hypothesis, instance):
-                is_consistent = is_consistent and (hypothesis_feature == '?' and hypothesis_feature == instance_feature)
+                is_consistent = is_consistent and (hypothesis_feature == '?'
+                                                   and hypothesis_feature == instance_feature)
             if is_consistent:
                 self.specific_hypothesis.drop(labels=label)
 
@@ -71,10 +72,10 @@ class CandidateElimination:
             for (i, hypothesis_feature), instance_feature in zip(hypothesis.iteritems(), instance):
                 new_hypothesis = hypothesis.copy()
                 if hypothesis_feature == '?':
-                    new_hypothesis.loc[i] = self.__domains.at[i, 1] if self.__domains.at[i, 0] == instance_feature \
-                        else self.__domains.at[i, 0]
+                    new_hypothesis.loc[i] = self.__domains.at[i, 1] \
+                        if self.__domains.at[i, 0] == instance_feature else self.__domains.at[i, 0]
                 elif hypothesis_feature == instance_feature:
-                    hypothesis.loc[i] = None
+                    new_hypothesis.loc[i] = None
 
                 if self.__is_more_general(new_hypothesis, self.specific_hypothesis):
                     new_generic_hypothesis = new_generic_hypothesis.append(new_hypothesis, ignore_index=True)
