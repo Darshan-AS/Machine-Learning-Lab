@@ -20,6 +20,8 @@ class CandidateElimination:
         self.specific_hypothesis = self.specific_hypothesis.append(
             pandas.Series([None] * self.__domains.shape[0]), ignore_index=True)
 
+        self.hypothesis_space = pandas.DataFrame()
+
     @staticmethod
     def __is_more_general(new_hypothesis, hypothesis_set):
         for index, hypothesis in hypothesis_set.iterrows():
@@ -97,18 +99,35 @@ class CandidateElimination:
             # print('---------------------------------------------------------')
             # print(self.specific_hypothesis, "\n\n", self.generic_hypothesis)
 
-        return self.specific_hypothesis, self.generic_hypothesis
+        self.__generate_hypothesis_space()
+        return self.hypothesis_space
+
+    def __generate_hypothesis_space(self):
+        for _, g in self.generic_hypothesis.iterrows():
+            for _, s in self.specific_hypothesis.iterrows():
+                for i in range(g.size):
+                    if g[i] == '?' and s[i] != '?':
+                        new_hypothesis = g.copy()
+                        new_hypothesis[i] = s[i]
+                        is_new = True
+                        for index, hypothesis in self.hypothesis_space.iterrows():
+                            if hypothesis.equals(new_hypothesis):
+                                is_new = False
+                        if is_new:
+                            self.hypothesis_space = self.hypothesis_space\
+                                .append(new_hypothesis, ignore_index=True)
 
 
 def main():
     play_data_set = pandas.read_csv('play_data.csv', header=None)
 
     candidate_elimination = CandidateElimination()
-    specific_hypothesis, generic_hypothesis = candidate_elimination.fit(
+    hypothesis_space = candidate_elimination.fit(
         play_data_set.iloc[:, :-1], play_data_set.iloc[:, -1])
-    print('Specific hypothesis: \n' + specific_hypothesis.to_string(header=False, index=False))
-    print()
-    print('Generic hypothesis: \n' + generic_hypothesis.to_string(header=False, index=False))
+
+    print('Specific Space: \n' + candidate_elimination.specific_hypothesis.to_string(header=False, index=False))
+    print('Generic Space: \n' + candidate_elimination.generic_hypothesis.to_string(header=False, index=False))
+    print('Hypothesis Space: \n' + hypothesis_space.to_string(header=False, index=False))
 
 
 if __name__ == "__main__":
