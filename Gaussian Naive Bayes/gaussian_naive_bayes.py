@@ -11,16 +11,12 @@ class GausssianNB:
         self.__mean_variance = {}
         self.__priors = {} if priors is None else priors
 
-    def __calculate_prior(self, y_train):
-        counts = y_train.value_counts().to_dict()
-        self.__priors = {_class: count / y_train.size for _class, count in counts.items()}
-
     def __calculate_mean_variance(self, x_train, y_train):
         for _class in y_train.unique():
             filtered_set = x_train[(y_train == _class)]
 
             m_v = []
-            for i in range(len(x_train.columns)):
+            for i in range(x_train.shape[1]):
                 mean = filtered_set[i].mean()
                 variance = math.pow(filtered_set[i].std(), 2)
                 m_v.append((mean, variance))
@@ -30,7 +26,10 @@ class GausssianNB:
     def fit(self, x_train, y_train):
         x_train = x_train.apply(pandas.to_numeric)
         y_train = y_train.apply(pandas.to_numeric)
-        self.__calculate_prior(y_train)
+
+        counts = y_train.value_counts().to_dict()
+        self.__priors = {_class: count / y_train.size for _class, count in counts.items()}
+
         self.__calculate_mean_variance(x_train, y_train)
 
     @staticmethod
