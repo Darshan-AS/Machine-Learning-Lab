@@ -12,18 +12,16 @@ class FindS:
         pass
 
     def fit(self, x_train, y_train):
-        self.hypothesis = pandas.Series([None] * len(x_train.columns))
+        self.hypothesis = pandas.Series([None] * x_train.shape[1])
 
         for (index, row), target in zip(x_train.iterrows(), y_train):
             if target == 0:
                 continue
 
             for i in range(len(self.hypothesis)):
-                if self.hypothesis.iloc[i] == row.iloc[i]:
-                    continue
-                elif self.hypothesis.iloc[i] is None:
+                if self.hypothesis.iloc[i] is None:
                     self.hypothesis.iloc[i] = row.iloc[i]
-                else:
+                elif self.hypothesis.iloc[i] != row.iloc[i]:
                     self.hypothesis.iloc[i] = '?'
 
         return self.hypothesis
@@ -35,7 +33,7 @@ def main():
 
     find_s = FindS()
     hypothesis = find_s.fit(x_train, y_train)
-    print(f'Hypothesis = { hypothesis.to_frame().T.to_string(header=False, index=False) }')
+    print(f'Hypothesis = <{ hypothesis.to_frame().T.to_string(header=False, index=False) }>')
 
 
 if __name__ == "__main__":
