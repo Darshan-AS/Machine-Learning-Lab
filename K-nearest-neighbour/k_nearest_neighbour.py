@@ -29,12 +29,12 @@ def main():
 def print_test_results(x_test, y_test, y_predicted, features, feature_names):
     result = pandas.DataFrame(x_test, columns=features)
     result['Actual Target'] = numpy.apply_along_axis(
-        lambda y: [feature_names[i] for i in y_test], 0, y_test)
+        lambda y: feature_names[y], 0, y_test)
     result['Predicted target'] = numpy.apply_along_axis(
-        lambda y: [feature_names[i] for i in y_predicted], 0, y_predicted)
+        lambda y: feature_names[y], 0, y_predicted)
     print(result)
     accuracy = metrics.accuracy_score(y_test, y_predicted)
-    print('Accuracy = {}%'.format(round(accuracy * 100, 2)))
+    print(f'Accuracy = {round(accuracy * 100, 2)}%')
 
 
 if __name__ == '__main__':
