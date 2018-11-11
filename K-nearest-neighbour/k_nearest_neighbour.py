@@ -11,7 +11,6 @@ import pandas
 
 def main():
     iris_data_bunch = load_iris()
-    print(iris_data_bunch)
     iris_data = iris_data_bunch.get('data')
     iris_target = iris_data_bunch.get('target')
     iris_target_names = iris_data_bunch.get('target_names')
@@ -34,7 +33,8 @@ def print_test_results(x_test, y_test, y_predicted, features, feature_names):
     result['Predicted target'] = numpy.apply_along_axis(
         lambda y: [feature_names[i] for i in y_predicted], 0, y_predicted)
     print(result)
-    print('Accuracy =', metrics.accuracy_score(y_test, y_predicted))
+    accuracy = metrics.accuracy_score(y_test, y_predicted)
+    print('Accuracy = {}%'.format(round(accuracy * 100, 2)))
 
 
 if __name__ == '__main__':

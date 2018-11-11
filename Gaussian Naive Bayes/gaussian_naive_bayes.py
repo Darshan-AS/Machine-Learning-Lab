@@ -81,7 +81,7 @@ def main():
     gaussian_nb.fit(x_train, y_train)
     y_pred = gaussian_nb.predict(x_test)
     accuracy = gaussian_nb.evaluate_model(y_test, y_pred)
-    print('Accuracy = {}%'.format(round(accuracy * 100, 2)))
+    print(f'Accuracy = {round(accuracy * 100, 2)}%')
 
 
 if __name__ == '__main__':
