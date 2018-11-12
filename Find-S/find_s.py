@@ -9,7 +9,6 @@ class FindS:
 
     def __init__(self):
         self.hypothesis = None
-        pass
 
     def fit(self, x_train, y_train):
         self.hypothesis = pandas.Series([None] * x_train.shape[1])
