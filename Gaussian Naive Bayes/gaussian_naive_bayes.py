@@ -13,12 +13,12 @@ class GausssianNB:
 
     def __calculate_mean_variance(self, x_train, y_train):
         for _class in y_train.unique():
-            filtered_set = x_train[(y_train == _class)]
+            filtered_class = x_train[(y_train == _class)]
 
             m_v = []
             for i in range(x_train.shape[1]):
-                mean = filtered_set[i].mean()
-                variance = math.pow(filtered_set[i].std(), 2)
+                mean = filtered_class[i].mean()
+                variance = math.pow(filtered_class[i].std(), 2)
                 m_v.append((mean, variance))
 
             self.__mean_variance[_class] = m_v
@@ -60,9 +60,9 @@ class GausssianNB:
         return y_pred
 
     @staticmethod
-    def evaluate_model(y_test, y_pred):
+    def accuracy_score(y_true, y_pred):
         accuracy = 0
-        for test, pred in zip(y_test, y_pred):
+        for test, pred in zip(y_true, y_pred):
             if test == pred:
                 accuracy += 1
         return accuracy / y_pred.size
@@ -79,7 +79,7 @@ def main():
     gaussian_nb = GausssianNB()
     gaussian_nb.fit(x_train, y_train)
     y_pred = gaussian_nb.predict(x_test)
-    accuracy = gaussian_nb.evaluate_model(y_test, y_pred)
+    accuracy = gaussian_nb.accuracy_score(y_test, y_pred)
     print(f'Accuracy = {round(accuracy * 100, 2)}%')
 
 
