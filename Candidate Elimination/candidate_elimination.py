@@ -27,8 +27,8 @@ class CandidateElimination:
         for index, hypothesis in hypothesis_set.iterrows():
             is_more_general = True
             for hypothesis_feature, new_hypothesis_feature in zip(hypothesis, new_hypothesis):
-                is_more_general = is_more_general and (new_hypothesis_feature == '?'
-                                                       or new_hypothesis_feature == hypothesis_feature)
+                is_more_general = is_more_general and \
+                                  (new_hypothesis_feature == '?' or new_hypothesis_feature == hypothesis_feature)
             if not is_more_general:
                 return False
 
@@ -62,8 +62,8 @@ class CandidateElimination:
         for label, hypothesis in self.specific_hypothesis.iterrows():
             is_consistent = False
             for hypothesis_feature, instance_feature in zip(hypothesis, instance):
-                is_consistent = is_consistent and (hypothesis_feature == '?'
-                                                   and hypothesis_feature == instance_feature)
+                is_consistent = is_consistent and \
+                                (hypothesis_feature == '?' and hypothesis_feature == instance_feature)
             if is_consistent:
                 self.specific_hypothesis.drop(labels=label)
 
@@ -125,9 +125,9 @@ def main():
     hypothesis_space = candidate_elimination.fit(
         play_data_set.iloc[:, :-1], play_data_set.iloc[:, -1])
 
-    print('Specific Space: \n' + candidate_elimination.specific_hypothesis.to_string(header=False, index=False))
-    print('Generic Space: \n' + candidate_elimination.generic_hypothesis.to_string(header=False, index=False))
-    print('Hypothesis Space: \n' + hypothesis_space.to_string(header=False, index=False))
+    print('\nSpecific Space: \n' + candidate_elimination.specific_hypothesis.to_string(header=False, index=False))
+    print('\nGeneric Space: \n' + candidate_elimination.generic_hypothesis.to_string(header=False, index=False))
+    print('\nHypothesis Space: \n' + hypothesis_space.to_string(header=False, index=False))
 
 
 if __name__ == "__main__":
