@@ -1,7 +1,7 @@
 # Machine-Learning-Lab
 VTU 7th sem ML lab programs
 
-Download 7th sem syllabus copy from [here](http://vtu.ac.in/pdf/cbcs/5sem/cssyll7.pdf/)
+Download 7th sem syllabus copy from [here](http://vtu.ac.in/pdf/cbcs/5sem/cssyll7.pdf)
 
 ## Contents
 - Program 1: **Find-S**
