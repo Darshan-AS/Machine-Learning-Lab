@@ -2,6 +2,7 @@
 @author: DON
 """
 import math
+
 import pandas
 
 
@@ -24,9 +25,6 @@ class GausssianNB:
             self.__mean_variance[_class] = m_v
 
     def fit(self, x_train, y_train):
-        x_train = x_train.apply(pandas.to_numeric)
-        y_train = y_train.apply(pandas.to_numeric)
-
         counts = y_train.value_counts().to_dict()
         self.__priors = {_class: count / y_train.size for _class, count in counts.items()}
 
