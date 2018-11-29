@@ -50,8 +50,6 @@ def show_plot(x_train, y_train, y_pred):
     plot.scatter(x_train, y_train, legend='Actual dataset', color='green')
     plot.line(x_train, y_pred, legend='Predicted curve', color='red', line_width=2)
     show(plot)
-    print('A file named "output.html" is downloaded in the current directory.\n'
-          'Open it in the browser to see the plot.')
 
 
 if __name__ == '__main__':
