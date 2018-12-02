@@ -6,7 +6,7 @@ Download 7th sem syllabus copy from [here](http://vtu.ac.in/pdf/cbcs/5sem/cssyll
 ## Contents
 - Program 1: **Find-S**
 - Program 2: **Candidate Elimination**
-- Program 3: **Coming soon!**
+- Program 3: **Decision Tree**
 - Program 4: **Coming soon!**
 - Program 5: **Gaussian Naive Bayes**
 - Program 6: **Multinomial Naive Bayes**
