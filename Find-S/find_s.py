@@ -27,7 +27,7 @@ class FindS:
 
 
 def main():
-    play_data_set = pandas.read_csv('play_data.csv', header=None)
+    play_data_set = pandas.read_csv('enjoy_sport_data.csv')
     x_train, y_train = play_data_set.iloc[:, :-1], play_data_set.iloc[:, -1]
 
     find_s = FindS()
