@@ -10,7 +10,7 @@ class FindS:
     def __init__(self):
         self.hypothesis = None
 
-    def fit(self, x_train, y_train):
+    def fit(self, x_train: pandas.DataFrame, y_train: pandas.Series) -> pandas.Series:
         self.hypothesis = pandas.Series([None] * x_train.shape[1])
 
         for (index, row), target in zip(x_train.iterrows(), y_train):

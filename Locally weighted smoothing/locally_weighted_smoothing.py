@@ -11,11 +11,11 @@ class Lowes:
     def __init__(self):
         self.X, self.y = None, None
 
-    def fit(self, x_train, y_train):
+    def fit(self, x_train: numpy.ndarray, y_train: numpy.ndarray):
         self.X = numpy.c_[numpy.ones(len(x_train)), x_train]
         self.y = y_train
 
-    def predict(self, x_test, sigma):
+    def predict(self, x_test: numpy.ndarray, sigma: float) -> numpy.ndarray:
         y_pred = numpy.array([])
         x_test = numpy.c_[numpy.ones(len(x_test)), x_test]
 
@@ -26,7 +26,7 @@ class Lowes:
 
         return y_pred
 
-    def __gaussian_kernal(self, x0, sigma):
+    def __gaussian_kernal(self, x0: float, sigma: float) -> float:
         return numpy.exp(numpy.sum((self.X - x0) ** 2, axis=1) / (-2 * sigma ** 2))
 
 

@@ -24,7 +24,7 @@ class DecisionTreeID3:
     def __init__(self):
         self.root = None
 
-    def fit(self, x_train, y_train):
+    def fit(self, x_train: pandas.DataFrame, y_train: pandas.Series):
         self.root = self.__id3(x_train, y_train)
 
     def predict(self, x_test: pandas.DataFrame):
@@ -59,12 +59,12 @@ class DecisionTreeID3:
         return information_gains.idxmax()
 
     @staticmethod
-    def __get_entropy(y: pandas.Series):
+    def __get_entropy(y: pandas.Series) -> float:
         probs = y.value_counts()
         probs /= probs.sum()
         return sum([-prob * math.log(prob, 2) for prob in probs])
 
-    def __classify(self, instance: pandas.Series, tree: Node):
+    def __classify(self, instance: pandas.Series, tree: Node) -> str:
         if not tree.children:
             return tree.label
         return self.__classify(instance, tree.children[instance[tree.label]])

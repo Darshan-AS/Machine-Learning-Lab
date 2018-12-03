@@ -34,7 +34,8 @@ class GausssianNB:
                 prob = self.__calculate_probability(
                     value,
                     self.__mean_variance[_class][0][attribute],
-                    self.__mean_variance[_class][1][attribute])
+                    self.__mean_variance[_class][1][attribute]
+                )
                 if prob > 0:
                     likelihood += math.log(prob)
             posterior_probabilities[_class] = math.log(prior_probability) + likelihood
