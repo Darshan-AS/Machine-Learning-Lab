@@ -28,9 +28,9 @@ class GausssianNB:
 
     def __get_prediction(self, test_instance: pandas.Series):
         posterior_probabilities = {}
-        for _class, prior_probability in self.__priors.items():
+        for _class, prior_probability in self.__priors.iteritems():
             likelihood = 0
-            for attribute, value in test_instance.items():
+            for attribute, value in test_instance.iteritems():
                 prob = self.__calculate_probability(
                     value,
                     self.__mean_variance[_class][0][attribute],
@@ -38,14 +38,14 @@ class GausssianNB:
                 )
                 if prob > 0:
                     likelihood += math.log(prob)
-            posterior_probabilities[_class] = math.log(prior_probability) + likelihood
+            posterior_probabilities[_class] = likelihood + math.log(prior_probability)
 
-        return max(posterior_probabilities, key=lambda k: posterior_probabilities[k])
+        return max(posterior_probabilities, key=posterior_probabilities.get)
 
     @staticmethod
     def __calculate_probability(value: float, mean: float, variance: float) -> float:
         exponent = math.exp(-(math.pow(value - mean, 2) / (2 * variance)))
-        return (1 / (math.sqrt(2 * math.pi * variance))) * exponent
+        return exponent / (math.sqrt(2 * math.pi * variance))
 
     @staticmethod
     def accuracy_score(y_true: pandas.Series, y_pred: pandas.Series) -> float:
