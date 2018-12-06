@@ -11,17 +11,17 @@ class FindS:
         self.hypothesis = None
 
     def fit(self, x_train: pandas.DataFrame, y_train: pandas.Series) -> pandas.Series:
-        self.hypothesis = pandas.Series([None] * x_train.shape[1])
+        self.hypothesis = pandas.Series([None] * x_train.shape[1], index=x_train.columns)
 
         for (index, row), target in zip(x_train.iterrows(), y_train):
             if target == 0:
                 continue
 
-            for i in range(len(self.hypothesis)):
-                if self.hypothesis.iloc[i] is None:
-                    self.hypothesis.iloc[i] = row.iloc[i]
-                elif self.hypothesis.iloc[i] != row.iloc[i]:
-                    self.hypothesis.iloc[i] = '?'
+            for attribute, value in self.hypothesis.iteritems():
+                if value is None:
+                    self.hypothesis[attribute] = row[attribute]
+                elif value != row[attribute]:
+                    self.hypothesis[attribute] = '?'
 
         return self.hypothesis
 
