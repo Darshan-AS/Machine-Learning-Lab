@@ -16,7 +16,8 @@ def main():
     iris_features = iris_data_bunch.get('feature_names')
 
     x_train, x_test, y_train, y_test = train_test_split(
-        iris_data, iris_target, test_size=0.3, shuffle=True, random_state=77)
+        iris_data, iris_target, test_size=0.3, shuffle=True, random_state=7
+    )
 
     knn_classifier = KNeighborsClassifier(n_neighbors=3)
     knn_classifier.fit(x_train, y_train)
