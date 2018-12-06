@@ -9,7 +9,7 @@ from sklearn.mixture import GaussianMixture
 
 
 def main():
-    iris_data_set = pandas.read_csv('iris_data.csv', header=None)
+    iris_data_set = pandas.read_csv('iris_data.csv')
     x_train, y_train = iris_data_set.iloc[:, :-1], iris_data_set.iloc[:, -1]
 
     k_means = KMeans(n_clusters=3)
