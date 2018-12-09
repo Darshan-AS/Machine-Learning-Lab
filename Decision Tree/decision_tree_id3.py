@@ -77,13 +77,10 @@ def main():
     decision_tree_id3 = DecisionTreeID3()
     decision_tree_id3.fit(x_train, y_train)
 
-    x_test = pandas.DataFrame()
-    t1 = pandas.Series(['sunny', 'cool', 'normal', 'weak'], index=x_train.columns)
-    t2 = pandas.Series(['rainy', 'hot', 'normal', 'strong'], index=x_train.columns)
-    # Add more test cases here
-    x_test = x_test.append([t1, t2], ignore_index=True)
+    x_test = pandas.read_csv('play_tennis_test_data.csv')
     y_pred = decision_tree_id3.predict(x_test)
-    print(y_pred)
+    x_test['Predicted'] = y_pred
+    print(x_test)
 
 
 if __name__ == '__main__':
